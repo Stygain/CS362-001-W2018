@@ -51,7 +51,7 @@ public class CalDay {
 	*/
 	public CalDay(GregorianCalendar cal) {
 	
-		int day = cal.get(cal.DAY_OF_MONTH);
+		int day = cal.get(cal.DAY_OF_MONTH)+1;
 		int month = cal.get(cal.MONTH);
 		int year = cal.get(cal.YEAR);
 	

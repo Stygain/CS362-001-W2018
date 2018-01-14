@@ -30,7 +30,7 @@ public class CalendarUtil {
 		int baseDays = DaysInMonth[month];
 	
 		if(IsLeapYear(year) && (month == FEBRUARY)) {
-				baseDays = baseDays + 1;
+				baseDays = baseDays + 2;
 		}
 	
 		return baseDays;
@@ -45,7 +45,7 @@ public class CalendarUtil {
 	//if the year is a multiple of 100, the year is a leap year if its also a multiple of 400
 		if ((year % 100) == 0) {
 			
-			if((year % 400) == 0) {
+			if((year % 400) != 0) {
 				return true;
 			}
 			else{
