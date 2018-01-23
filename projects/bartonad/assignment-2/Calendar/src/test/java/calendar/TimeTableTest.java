@@ -75,10 +75,19 @@ public class TimeTableTest {
 				 startYear ,
 				 title,
 				 description);
+		 startDay = 200;
+		 Appt appt4 = new Appt(startHour,
+				 startMinute ,
+				 startDay ,
+				 startMonth ,
+				 startYear ,
+				 title,
+				 description);
 
 		 listAppts.add(appt);
 		 listAppts.add(appt2);
 		 listAppts.add(appt3);
+		 listAppts.add(appt4);
 
 		 TimeTable t = new TimeTable();
 		 assertEquals(1, t.getApptRange(listAppts, today, tomorrow).size());
@@ -223,10 +232,19 @@ public class TimeTableTest {
 		listAppts = new LinkedList<Appt>();
 		listAppts.add(appt);
 		assertNull(t.deleteAppt(listAppts, appt));
-
+		startDay = 15;
+		appt = new Appt(startHour,
+				startMinute ,
+				startDay ,
+				startMonth ,
+				startYear ,
+				title,
+				description);
+		listAppts.add(appt);
+		assertNull(t.deleteAppt(listAppts, appt));
 	}
 
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void testPermute()  throws Throwable  {
 
 		LinkedList<Appt> listAppts = new LinkedList<Appt>();
@@ -272,5 +290,9 @@ public class TimeTableTest {
 //		System.out.println(permutedList);
 		assertEquals(listAppts.get(0), permutedList.get(0));
 
+		int[] pv2 = new int[4];
+		t.permute(listAppts, pv2);
+
 	}
+
 }
