@@ -176,6 +176,16 @@ public class TimeTableTest {
 		int[] recurDaysArr={2,3,4};
 		appt.setRecurrence(recurDaysArr, Appt.RECUR_BY_WEEKLY, 2, Appt.RECUR_NUMBER_FOREVER);
 
+		Appt appt2 = new Appt(startHour,
+				startMinute ,
+				startDay ,
+				startMonth ,
+				startYear ,
+				title,
+				description);
+
+		appt2.setRecurrence(recurDaysArr, Appt.RECUR_BY_MONTHLY, 2, Appt.RECUR_NUMBER_FOREVER);
+
 		GregorianCalendar today = new GregorianCalendar(thisYear,thisMonth,thisDay);
 		GregorianCalendar tomorrow = (GregorianCalendar)today.clone();
 		tomorrow.add(Calendar.MONTH,1);
@@ -185,8 +195,209 @@ public class TimeTableTest {
 
 		TimeTable t = new TimeTable();
 		GregorianCalendar day = new GregorianCalendar();
-		// assertEquals(28, t.getApptRange(listAppts, today, tomorrow).size());
+		LinkedList<CalDay> c = t.getApptRange(listAppts, today, tomorrow);
+		int count = 0;
+		for (int i = 0; i < c.size(); i++) {
+			if (c.get(i).getAppts().size() != 0) {
+				count++;
+			}
+		}
+		assertEquals(14, count);
 
+
+		listAppts.add(appt2);
+		LinkedList<CalDay> c2 = t.getApptRange(listAppts, today, tomorrow);
+		count = 0;
+		for (int i = 0; i < c2.size(); i++) {
+			if (c2.get(i).getAppts().size() != 0) {
+				count++;
+			}
+		}
+		assertEquals(14, count);
+	}
+
+	@Test
+	public void testApptOccurrences()  throws Throwable  {
+
+		Calendar rightnow = Calendar.getInstance();
+		int thisMonth = rightnow.get(Calendar.MONTH)+1;
+		int thisYear = rightnow.get(Calendar.YEAR);
+		int thisDay = rightnow.get(Calendar.DAY_OF_MONTH);
+		int startHour=15;
+		int startMinute=30;
+		int startDay=thisDay+1;
+		int startMonth=thisMonth;
+		int startYear=thisYear;
+		String title="Birthday Party";
+		String description="This is my birthday party.";
+
+		Appt appt = new Appt(startHour,
+				startMinute ,
+				startDay ,
+				startMonth ,
+				startYear ,
+				title,
+				description);
+
+		int[] recurDaysArr={2,3,4};
+		appt.setRecurrence(recurDaysArr, Appt.RECUR_BY_MONTHLY, 2, Appt.RECUR_NUMBER_FOREVER);
+
+		GregorianCalendar today = new GregorianCalendar(thisYear,thisMonth,thisDay);
+		GregorianCalendar month = (GregorianCalendar)today.clone();
+		month.add(Calendar.MONTH,1);
+
+		LinkedList<Appt> listAppts = new LinkedList<Appt>();
+
+		TimeTable t = new TimeTable();
+		listAppts.add(appt);
+		LinkedList<CalDay> c = t.getApptRange(listAppts, today, month);
+		int count = 0;
+		for (int i = 0; i < c.size(); i++) {
+			if (c.get(i).getAppts().size() != 0) {
+				for (int j = 0; j < c.get(i).getAppts().size(); j++) {
+					count++;
+				}
+			}
+		}
+		assertEquals(1, count);
+	}
+
+	@Test
+	public void testApptOccurrences2()  throws Throwable  {
+
+		Calendar rightnow = Calendar.getInstance();
+		int thisMonth = rightnow.get(Calendar.MONTH)+1;
+		int thisYear = rightnow.get(Calendar.YEAR);
+		int thisDay = rightnow.get(Calendar.DAY_OF_MONTH);
+		int startHour=15;
+		int startMinute=30;
+		int startDay=thisDay+1;
+		int startMonth=thisMonth;
+		int startYear=thisYear;
+		String title="Birthday Party";
+		String description="This is my birthday party.";
+
+		Appt appt = new Appt(startHour,
+				startMinute ,
+				startDay ,
+				startMonth ,
+				startYear ,
+				title,
+				description);
+
+		int[] recurDaysArr = {};
+		appt.setRecurrence(recurDaysArr, Appt.RECUR_BY_WEEKLY, 2, Appt.RECUR_NUMBER_FOREVER);
+
+		GregorianCalendar today = new GregorianCalendar(thisYear,thisMonth,thisDay);
+		GregorianCalendar month = (GregorianCalendar)today.clone();
+		month.add(Calendar.MONTH,1);
+
+		LinkedList<Appt> listAppts = new LinkedList<Appt>();
+
+		TimeTable t = new TimeTable();
+		listAppts.add(appt);
+		LinkedList<CalDay> c = t.getApptRange(listAppts, today, month);
+		int count = 0;
+		for (int i = 0; i < c.size(); i++) {
+			if (c.get(i).getAppts().size() != 0) {
+				for (int j = 0; j < c.get(i).getAppts().size(); j++) {
+					count++;
+				}
+			}
+		}
+		assertEquals(5, count);
+	}
+
+	@Test
+	public void testApptOccurrences3()  throws Throwable  {
+
+		Calendar rightnow = Calendar.getInstance();
+		int thisMonth = rightnow.get(Calendar.MONTH)+1;
+		int thisYear = rightnow.get(Calendar.YEAR);
+		int thisDay = rightnow.get(Calendar.DAY_OF_MONTH);
+		int startHour=15;
+		int startMinute=30;
+		int startDay=thisDay+1;
+		int startMonth=thisMonth;
+		int startYear=thisYear;
+		String title="Birthday Party";
+		String description="This is my birthday party.";
+
+		Appt appt = new Appt(startHour,
+				startMinute ,
+				startDay ,
+				startMonth ,
+				startYear ,
+				title,
+				description);
+
+		int[] recurDaysArr = {10};
+		appt.setRecurrence(recurDaysArr, Appt.RECUR_BY_WEEKLY, 2, Appt.RECUR_NUMBER_FOREVER);
+
+		GregorianCalendar today = new GregorianCalendar(thisYear,thisMonth,thisDay);
+		GregorianCalendar month = (GregorianCalendar)today.clone();
+		month.add(Calendar.MONTH,1);
+
+		LinkedList<Appt> listAppts = new LinkedList<Appt>();
+
+		TimeTable t = new TimeTable();
+		listAppts.add(appt);
+		LinkedList<CalDay> c = t.getApptRange(listAppts, today, month);
+		int count = 0;
+		for (int i = 0; i < c.size(); i++) {
+			if (c.get(i).getAppts().size() != 0) {
+				for (int j = 0; j < c.get(i).getAppts().size(); j++) {
+					count++;
+				}
+			}
+		}
+		assertEquals(1, count);
+	}
+
+	@Test
+	public void testApptOccurrences4()  throws Throwable  {
+
+		Calendar rightnow = Calendar.getInstance();
+		int thisMonth = rightnow.get(Calendar.MONTH)+1;
+		int thisYear = rightnow.get(Calendar.YEAR);
+		int thisDay = rightnow.get(Calendar.DAY_OF_MONTH);
+		int startHour=15;
+		int startMinute=30;
+		int startDay=thisDay+1;
+		int startMonth=thisMonth;
+		int startYear=thisYear;
+		String title="Birthday Party";
+		String description="This is my birthday party.";
+
+		Appt appt = new Appt(startHour,
+				startMinute ,
+				startDay ,
+				startMonth ,
+				startYear ,
+				title,
+				description);
+
+		int[] recurDaysArr = {4};
+		appt.setRecurrence(recurDaysArr, Appt.RECUR_BY_YEARLY, 2, Appt.RECUR_NUMBER_FOREVER);
+
+		GregorianCalendar today = new GregorianCalendar(thisYear,thisMonth,thisDay);
+		GregorianCalendar year2 = (GregorianCalendar)today.clone();
+		year2.add(Calendar.YEAR,3);
+
+		LinkedList<Appt> listAppts = new LinkedList<Appt>();
+
+		TimeTable t = new TimeTable();
+		listAppts.add(appt);
+		LinkedList<CalDay> c = t.getApptRange(listAppts, today, year2);
+		int count = 0;
+		for (int i = 0; i < c.size(); i++) {
+			if (c.get(i).getAppts().size() != 0) {
+				for (int j = 0; j < c.get(i).getAppts().size(); j++) {
+					count++;
+				}
+			}
+		}
+		assertEquals(3, count);
 	}
 
 	@Test
@@ -284,7 +495,7 @@ public class TimeTableTest {
 		assertNull(t.deleteAppt(listAppts, appt));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testPermute()  throws Throwable  {
 
 		LinkedList<Appt> listAppts = new LinkedList<Appt>();
@@ -324,14 +535,46 @@ public class TimeTableTest {
 		listAppts.add(appt2);
 		listAppts.add(appt3);
 		int[] pv = new int[3];
-		pv[1] = 2;
+		pv[0] = 1;
+		pv[1] = 0;
+		pv[2] = 0;
 		LinkedList<Appt> permutedList = t.permute(listAppts, pv);
-//		System.out.println(listAppts);
-//		System.out.println(permutedList);
-		assertEquals(listAppts.get(0), permutedList.get(0));
+		assertEquals(listAppts.size(), permutedList.size());
+		assertEquals(listAppts.get(0).toString(), permutedList.get(0).toString());
 
-		int[] pv2 = new int[4];
-		t.permute(listAppts, pv2);
+	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testPermuteError()  throws Throwable  {
+
+		LinkedList<Appt> listAppts = new LinkedList<Appt>();
+		TimeTable t = new TimeTable();
+
+		int startHour=21;
+		int startMinute=50;
+		int startDay=15;
+		int startMonth=01;
+		int startYear=2018;
+		String title="Birthday Party";
+		String description="This is my birthday party.";
+		Appt appt = new Appt(startHour,
+				startMinute ,
+				startDay ,
+				startMonth ,
+				startYear ,
+				title,
+				description);
+		description="This is my friend's birthday party.";
+		Appt appt2 = new Appt(startHour,
+				startMinute ,
+				startDay ,
+				startMonth ,
+				startYear ,
+				title,
+				description);
+		listAppts.add(appt);
+		listAppts.add(appt2);
+		int[] pv = new int[4];
+		LinkedList<Appt> permutedList = t.permute(listAppts, pv);
 
 	}
 
