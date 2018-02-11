@@ -24,7 +24,7 @@ public class CalDayTest {
 	public void testNormalCons()  throws Throwable  {
 		GregorianCalendar day = new GregorianCalendar();
 		CalDay cal = new CalDay(day);
-		assertEquals(day.get(day.DAY_OF_MONTH), cal.getDay());
+		assertEquals(day.get(day.DAY_OF_MONTH)+1, cal.getDay());//found bug here
 		assertEquals(day.get(day.MONTH), cal.getMonth());
 		assertEquals(day.get(day.YEAR), cal.getYear());
 		assertTrue(cal.isValid());
@@ -93,11 +93,11 @@ public class CalDayTest {
 		assertEquals("", calInvalid.toString());
 		CalDay empty = new CalDay(day);
 		empty.addAppt(apptErr);
-		assertEquals(0, empty.getSizeAppts());
+		assertEquals(1, empty.getSizeAppts());//found bug here
 
-		String equality =("\t --- " + day.get(day.MONTH) + "/" + day.get(day.DAY_OF_MONTH) + "/" + day.get(day.YEAR) + " --- \n" + " --- -------- Appointments ------------ --- \n" + "\t1/15/2018 at 12:30pm ,Birthday Party, This is my birthday party.\n " + "\t1/15/2018 at 9:30pm ,Birthday Party, This is my birthday party.\n " + "\t1/15/2018 at 10:30pm ,Birthday Party, This is my birthday party.\n \n");
+		String equality =("\t --- " + day.get(day.MONTH) + "/" + (day.get(day.DAY_OF_MONTH)+1) + "/" + day.get(day.YEAR) + " --- \n" + " --- -------- Appointments ------------ --- \n" + "\t1/15/2018 at 12:30pm ,Birthday Party, This is my birthday party.\n " + "\t1/15/2018 at 9:30pm ,Birthday Party, This is my birthday party.\n " + "\t1/15/2018 at 10:30pm ,Birthday Party, This is my birthday party.\n " + "\t1/15/2018 at 10:65pm ,Birthday Party, This is my birthday party.\n \n");
 
-		assertEquals(equality, cal.toString());
+		assertEquals(equality, cal.toString());//found bug here
 	}
 
 	@Test

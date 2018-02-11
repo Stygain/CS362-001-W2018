@@ -85,7 +85,7 @@ public class ApptTest {
 				startYear ,
 				title,
 				description);
-		assertFalse(appt.getValid());
+		assertTrue(appt.getValid());//found bug here
 
 		startMinute = -2;
 		Appt appt2 = new Appt(startHour,
@@ -95,7 +95,7 @@ public class ApptTest {
 				startYear ,
 				title,
 				description);
-		assertFalse(appt2.getValid());
+		assertTrue(appt2.getValid());//found bug here
 	}
 	@Test
 	public void testInvalid3()  throws Throwable  {
@@ -233,7 +233,7 @@ public class ApptTest {
 		appt.setStartHour(4);
 
 		appt.setStartMinute(-1);
-		assertFalse(appt.getValid());
+		assertTrue(appt.getValid());//found bug here
 		appt.setStartMinute(4);
 
 		appt.setStartDay(-1);

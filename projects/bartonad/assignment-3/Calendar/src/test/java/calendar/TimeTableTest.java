@@ -540,7 +540,7 @@ public class TimeTableTest {
 		pv[2] = 0;
 		LinkedList<Appt> permutedList = t.permute(listAppts, pv);
 		assertEquals(listAppts.size(), permutedList.size());
-		assertEquals(listAppts.get(0).toString(), permutedList.get(0).toString());
+		assertEquals(listAppts.get(0).toString(), permutedList.get(0).toString());//found bug here
 
 	}
 	@Test(expected = IllegalArgumentException.class)
