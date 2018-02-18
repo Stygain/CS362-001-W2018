@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
 import java.util.Random;
 
 import static org.junit.Assert.*;
@@ -17,8 +18,8 @@ import static org.junit.Assert.*;
  */
 
 public class CalDayRandomTest {
-	private static final long TestTimeout = 60 * 500 * 1; /* Timeout at 30 seconds */
-	private static final int NUM_TESTS=15	;
+	private static final long TestTimeout = 60 * 100; /* Timeout at 30 seconds */
+	private static final int NUM_TESTS=15;
 	
     /**
      * Generate Random Tests that tests CalDay Class.
@@ -37,42 +38,29 @@ public class CalDayRandomTest {
 				 long randomseed =System.currentTimeMillis();
 				 Random random = new Random(randomseed);
 
-				 int startHour=ValuesGenerator.getRandomIntBetween(random, -1, 25);
-				 int startMinute=ValuesGenerator.getRandomIntBetween(random, -1, 60);
-				 int startDay=ValuesGenerator.getRandomIntBetween(random, -1, 32);
-				 int startMonth = ValuesGenerator.getRandomIntBetween(random, 1, 11);
-				 int startYear=ValuesGenerator.RandInt(random);
-				 String title="Birthday Party";
-				 String description="This is my birthday party.";
-				 //Construct a new Appointment object with the initial data
-				 Appt appt = new Appt(startHour,
-						 startMinute ,
-						 startDay ,
-						 startMonth ,
-						 startYear ,
-						 title,
-						 description);
-
-				 startHour=ValuesGenerator.getRandomIntBetween(random, -1, 25);
-				 startMinute=ValuesGenerator.getRandomIntBetween(random, -1, 60);
-				 startDay=ValuesGenerator.getRandomIntBetween(random, -1, 32);
-				 startMonth = ValuesGenerator.getRandomIntBetween(random, 1, 11);
-				 startYear=ValuesGenerator.RandInt(random);
-				 title="Birthday Party";
-				 description="This is my birthday party.";
-				 Appt appt2 = new Appt(startHour,
-						 startMinute ,
-						 startDay ,
-						 startMonth ,
-						 startYear ,
-						 title,
-						 description);
 				 GregorianCalendar day = new GregorianCalendar();
+				 Calendar rightnow = Calendar.getInstance();
+				 int thisYear = rightnow.get(Calendar.YEAR);
 				 CalDay c = new CalDay(day);
-				 if(!appt.getValid() && !appt2.getValid())continue;
+
 				 for (int i = 0; i < NUM_TESTS; i++) {
-					c.addAppt(appt);
-					c.addAppt(appt2);
+					 int startHour=ValuesGenerator.getRandomIntBetween(random, -1, 25);
+					 int startMinute=ValuesGenerator.getRandomIntBetween(random, -1, 60);
+					 int startDay=ValuesGenerator.getRandomIntBetween(random, -1, 32);
+					 int startMonth = ValuesGenerator.getRandomIntBetween(random, 1, 11);
+					 int startYear=thisYear;
+					 String title="Birthday Party" + i;
+					 String description="This is my birthday party." + i;
+					 Appt appt = new Appt(startHour,
+							 startMinute ,
+							 startDay ,
+							 startMonth ,
+							 startYear ,
+							 title,
+							 description);
+					 if (appt.getValid()) {
+						 c.addAppt(appt);
+					 }
 				 }
 
 				 elapsed = (Calendar.getInstance().getTimeInMillis() - startTime);
