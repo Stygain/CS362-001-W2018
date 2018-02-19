@@ -58,9 +58,7 @@ public class CalDayRandomTest {
 							 startYear ,
 							 title,
 							 description);
-					 if (appt.getValid()) {
-						 c.addAppt(appt);
-					 }
+					 c.addAppt(appt);
 				 }
 
 				 elapsed = (Calendar.getInstance().getTimeInMillis() - startTime);

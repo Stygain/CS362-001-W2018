@@ -122,9 +122,7 @@ public class TimeTableRandomTest {
 							startYear ,
 							title,
 							description);
-					if (appt.getValid()) {
-						listAppts.add(appt);
-					}
+					listAppts.add(appt);
 				}
 
 				TimeTable t = new TimeTable();
